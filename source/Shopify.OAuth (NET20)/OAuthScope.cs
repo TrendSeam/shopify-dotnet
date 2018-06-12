@@ -108,5 +108,10 @@ namespace Teference.Shopify.Api
         /// Write access to carrier service.
         /// </summary>
         write_shipping = 1 << 15,
+        
+        /// <summary>
+        /// Read the historical orders
+        /// </summary>
+        read_all_orders = 1 << 16,
     }
 }
