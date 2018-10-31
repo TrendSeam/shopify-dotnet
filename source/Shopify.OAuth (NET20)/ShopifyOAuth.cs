@@ -181,14 +181,13 @@ namespace Teference.Shopify.Api
                 queryBuilder.Add(AppResources.ClientSecretKeyword, this.Configuration.SecretKey);
                 queryBuilder.Add(AppResources.CodeKeyword, authorizationCode);
 
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(accessTokenUrl);
-                httpWebRequest.Method = HttpType.POST.ToString();
-
-                //// Not sure if that would help but I encountered this while fixing another BUG so going to keep it in place.
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
+				//// Not sure if that would help but I encountered this while fixing another BUG so going to keep it in place.
+				ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
+				
+	            var httpWebRequest = (HttpWebRequest)WebRequest.Create(accessTokenUrl);
+	            httpWebRequest.Method = HttpType.POST.ToString();
                 httpWebRequest.ContentType = AppResources.DefaultHttpClientContentType;
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
